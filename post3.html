@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Algoritmos BFS y DFS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-icon">
+                    <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    >
+                    <defs>
+                        <!-- Gradiente de fondo -->
+                        <linearGradient id="graphGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="50%" stop-color="#6366f1" />
+                        <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+        
+                    <!-- Círculo de fondo tipo badge -->
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        fill="url(#graphGradient)"
+                    />
+        
+                    <!-- Anillo sutil -->
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="36"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.25)"
+                        stroke-width="3"
+                    />
+        
+                    <!-- Aristas del grafo -->
+                    <line x1="30" y1="60" x2="45" y2="30" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="45" y1="30" x2="70" y2="35" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="30" y1="60" x2="65" y2="70" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="65" y1="70" x2="70" y2="35" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="45" y1="30" x2="55" y2="55" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="55" y1="55" x2="30" y2="60" stroke="white" stroke-width="3" stroke-linecap="round" />
+        
+                    <!-- Nodos -->
+                    <circle cx="45" cy="30" r="4.5" fill="white" />
+                    <circle cx="30" cy="60" r="4.5" fill="white" />
+                    <circle cx="70" cy="35" r="4.5" fill="white" />
+                    <circle cx="65" cy="70" r="4.5" fill="white" />
+                    <circle cx="55" cy="55" r="4.5" fill="white" />
+                    </svg>
+                </span>
+                <span> GrafosBlog </span>
+            </a>
+        </div>
+        <nav class="main-nav">
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+            ☰
+        </button>
+        <ul id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="post1.html" class="nav-link">Introducción a los Grafos</a></li>
+            <li><a href="post2.html" class="nav-link">Representación de Grafos</a></li>
+            <li><a href="post3.html" class="nav-link">BFS y DFS</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <main class="container post">
+        <article>
+        <h1>Algoritmos Fundamentales de Recorrido: BFS y DFS</h1>
+        <p>
+            Una vez que tienes un grafo, la siguiente pregunta lógica es:
+            <strong>“¿cómo lo recorro o exploro?”</strong>.
+            Dos algoritmos clásicos y fundamentales son:
+        </p>
+        <ul>
+            <li><strong>BFS (Breadth-First Search)</strong> – Búsqueda en Amplitud.</li>
+            <li><strong>DFS (Depth-First Search)</strong> – Búsqueda en Profundidad.</li>
+        </ul>
+
+        <p>
+            Ambos algoritmos visitan nodos, pero su estrategia mental es distinta:
+            <strong>BFS</strong> explora por “capas” (niveles),
+            mientras que <strong>DFS</strong> intenta ir lo más profundo posible antes de retroceder.
+        </p>
+
+        <hr>
+
+        <h2>Búsqueda en Amplitud (BFS)</h2>
+        <p>
+            BFS recorre el grafo por niveles desde un nodo inicial. Primero visita
+            todos los vecinos directos, luego los vecinos de esos vecinos, y así sucesivamente.
+            Internamente usa una <strong>cola (queue)</strong>.
+        </p>
+
+        <h3>Idea general de BFS</h3>
+        <ol>
+            <li>Escoge un nodo inicial <code>s</code> y márcalo como visitado.</li>
+            <li>Colócalo en una cola (<em>queue</em>).</li>
+            <li>
+            Mientras la cola no esté vacía:
+            <ul>
+                <li>Saca un nodo <code>u</code> de la cola.</li>
+                <li>Para cada vecino <code>v</code> de <code>u</code>:
+                si <code>v</code> no está visitado, márcalo y agrégalo a la cola.</li>
+            </ul>
+            </li>
+        </ol>
+
+        <pre class="code-block">
+            BFS(Grafo G, nodo_inicial s):
+            crear cola Q
+            marcar s como visitado
+            encolar s en Q
+
+            mientras Q no esté vacía:
+            u = desencolar Q
+            para cada vecino v de u:
+            si v no está visitado:
+                marcar v como visitado
+                encolar v en Q
+        </pre>
+
+        <p>
+            La complejidad típica de BFS es <strong>O(V + E)</strong>, donde
+            <strong>V</strong> es el número de vértices y <strong>E</strong> el número de aristas.
+        </p>
+
+        <h3>Ejemplo 1: orden de visita con BFS</h3>
+        <p>
+            Supongamos un grafo no dirigido con aristas:
+        </p>
+        <ul>
+            <li>(A – B), (A – C), (B – D), (C – E)</li>
+        </ul>
+        <p>
+            Si empezamos en <strong>A</strong>, el recorrido BFS sería:
+        </p>
+        <p><strong>A → B → C → D → E</strong></p>
+        <p>
+            Explicación rápida:
+        </p>
+        <ul>
+            <li>Nivel 0: A</li>
+            <li>Nivel 1: B, C</li>
+            <li>Nivel 2: D (desde B), E (desde C)</li>
+        </ul>
+
+        <h3>Ejemplo 2: BFS para distancia mínima</h3>
+        <p>
+            En un grafo no ponderado, BFS permite hallar el número mínimo de aristas
+            desde un nodo origen hasta cualquier otro nodo.
+        </p>
+        <p>
+            Si consideramos el mismo grafo y queremos la distancia (en aristas) de A a E:
+        </p>
+        <ul>
+            <li>A → C → E, así que la distancia es 2 aristas.</li>
+        </ul>
+
+        <h3>Ejemplo en código (JavaScript) – BFS con lista de adyacencia</h3>
+        <p>
+            Usaremos una representación de grafo como objeto, donde cada clave es un nodo
+            y su valor es un array con sus vecinos:
+        </p>
+
+        <pre class="code-block"><code>
+    // Grafo no dirigido como lista de adyacencia
+    const grafo = {
+    A: ["B", "C"],
+    B: ["A", "D"],
+    C: ["A", "E"],
+    D: ["B"],
+    E: ["C"]
+    };
+
+    function bfs(grafo, inicio) {
+    const visitado = new Set();
+    const cola = [];
+    const orden = [];
+
+    visitado.add(inicio);
+    cola.push(inicio);
+
+    while (cola.length > 0) {
+        const u = cola.shift();      // desencolar
+        orden.push(u);
+
+        for (const v of grafo[u]) {  // vecinos de u
+        if (!visitado.has(v)) {
+            visitado.add(v);
+            cola.push(v);
+        }
+        }
+    }
+
+    return orden;
+    }
+
+    // Ejemplo:
+    console.log(bfs(grafo, "A")); // ["A", "B", "C", "D", "E"]
+        </code></pre>
+
+        <p>
+            Aquí, <code>bfs</code> devuelve el orden de visita empezando por el nodo indicado.
+        </p>
+
+        <hr>
+
+        <h2>Búsqueda en Profundidad (DFS)</h2>
+        <p>
+            DFS recorre el grafo intentando llegar lo más lejos posible desde el nodo inicial
+            antes de retroceder. Es como seguir un camino hasta el final, luego retroceder
+            y probar otro. Normalmente se implementa con <strong>recursión</strong>
+            o con una <strong>pila (stack)</strong>.
+        </p>
+
+        <h3>Idea general de DFS (versión recursiva)</h3>
+        <ol>
+            <li>Escoge un nodo inicial <code>u</code> y márcalo como visitado.</li>
+            <li>
+            Para cada vecino <code>v</code> de <code>u</code>:
+            <ul>
+                <li>si <code>v</code> no está visitado, llamamos recursivamente a DFS en <code>v</code>.</li>
+            </ul>
+            </li>
+        </ol>
+
+        <pre class="code-block">
+    DFS(Grafo G, nodo u):
+    marcar u como visitado
+    para cada vecino v de u:
+        si v no está visitado:
+        DFS(G, v)
+        </pre>
+
+        <p>
+            Al igual que BFS, su complejidad típica es <strong>O(V + E)</strong>.
+        </p>
+
+        <h3>Ejemplo 1: orden de visita con DFS</h3>
+        <p>
+            Usando el mismo grafo que antes:
+        </p>
+        <ul>
+            <li>Aristas: (A – B), (A – C), (B – D), (C – E)</li>
+        </ul>
+        <p>
+            Si empezamos en <strong>A</strong> y asumimos que visitamos vecinos en orden alfabético,
+            un posible recorrido DFS es:
+        </p>
+        <p><strong>A → B → D → C → E</strong></p>
+
+        <p>La “historia” sería:</p>
+        <ul>
+            <li>Desde A, primero voy a B.</li>
+            <li>Desde B, voy a D. D no tiene nuevos vecinos, retrocedo.</li>
+            <li>Regreso a A, ahora voy a C.</li>
+            <li>Desde C voy a E, luego retrocedo. Lista completa: A, B, D, C, E.</li>
+        </ul>
+
+        <h3>Ejemplo 2: DFS para componentes conexas</h3>
+        <p>
+            Si el grafo tiene varias “islas” (componentes conexas), podemos usar DFS
+            para encontrarlas:
+        </p>
+        <ol>
+            <li>Inicializamos todos los nodos como no visitados.</li>
+            <li>Recorremos todos los nodos:
+            <ul>
+                <li>si un nodo no está visitado, lanzamos DFS desde él y marcamos todo lo que alcance como parte de la misma componente.</li>
+            </ul>
+            </li>
+        </ol>
+        <p>
+            Así podemos contar cuántas componentes conexas tiene un grafo.
+        </p>
+
+        <h3>Ejemplo en código (JavaScript) – DFS con lista de adyacencia</h3>
+
+        <pre class="code-block"><code>
+    // Mismo grafo que en el ejemplo de BFS
+    const grafoDFS = {
+    A: ["B", "C"],
+    B: ["A", "D"],
+    C: ["A", "E"],
+    D: ["B"],
+    E: ["C"]
+    };
+
+    function dfs(grafo, inicio) {
+    const visitado = new Set();
+    const orden = [];
+
+    function dfsRec(u) {
+        visitado.add(u);
+        orden.push(u);
+
+        for (const v of grafo[u]) {
+        if (!visitado.has(v)) {
+            dfsRec(v);
+        }
+        }
+    }
+
+    dfsRec(inicio);
+    return orden;
+    }
+
+    // Ejemplo:
+    console.log(dfs(grafoDFS, "A")); // posible resultado: ["A", "B", "D", "C", "E"]
+        </code></pre>
+
+        <p>
+            En este ejemplo, <code>dfs</code> devuelve el orden en que se visitan
+            los nodos empezando desde A. El orden exacto puede cambiar si cambias
+            el orden de los vecinos en la lista de adyacencia.
+        </p>
+
+        <hr>
+
+        <h2>Resumen rápido</h2>
+        <ul>
+            <li><strong>BFS:</strong> recorre por niveles, usa cola, ideal para distancias mínimas en grafos no ponderados.</li>
+            <li><strong>DFS:</strong> recorre por profundidad, usa recursión o pila, ideal para explorar estructura, detectar ciclos o componentes.</li>
+        </ul>
+
+        <p>
+            En muchos problemas reales se combinan ambos: por ejemplo, DFS para analizar
+            estructura global del grafo, y BFS para encontrar caminos mínimos locales.
+        </p>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="currentYear"></span> GrafosBlog. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Representación de Grafos</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-icon">
+                    <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    >
+                    <defs>
+                        <!-- Gradiente de fondo -->
+                        <linearGradient id="graphGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="50%" stop-color="#6366f1" />
+                        <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+        
+                    <!-- Círculo de fondo tipo badge -->
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        fill="url(#graphGradient)"
+                    />
+        
+                    <!-- Anillo sutil -->
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="36"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.25)"
+                        stroke-width="3"
+                    />
+        
+                    <!-- Aristas del grafo -->
+                    <line x1="30" y1="60" x2="45" y2="30" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="45" y1="30" x2="70" y2="35" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="30" y1="60" x2="65" y2="70" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="65" y1="70" x2="70" y2="35" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="45" y1="30" x2="55" y2="55" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="55" y1="55" x2="30" y2="60" stroke="white" stroke-width="3" stroke-linecap="round" />
+        
+                    <!-- Nodos -->
+                    <circle cx="45" cy="30" r="4.5" fill="white" />
+                    <circle cx="30" cy="60" r="4.5" fill="white" />
+                    <circle cx="70" cy="35" r="4.5" fill="white" />
+                    <circle cx="65" cy="70" r="4.5" fill="white" />
+                    <circle cx="55" cy="55" r="4.5" fill="white" />
+                    </svg>
+                </span>
+                <span> GrafosBlog </span>
+            </a>
+        </div>
+        <nav class="main-nav">
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+            ☰
+        </button>
+        <ul id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="post1.html" class="nav-link">Introducción a los Grafos</a></li>
+            <li><a href="post2.html" class="nav-link">Representación de Grafos</a></li>
+            <li><a href="post3.html" class="nav-link">BFS y DFS</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <main class="container post">
+        <article>
+        <h1>Representación de Grafos en Memoria</h1>
+        <p>
+            Para trabajar con grafos en una computadora, necesitamos una forma de 
+            <strong>representar nodos y aristas en memoria</strong>. Las dos formas más comunes son:
+        </p>
+
+        <h2>1. Lista de Adyacencia</h2>
+        <p>
+            La <strong>lista de adyacencia</strong> guarda, para cada nodo, una lista de los nodos
+            con los que está conectado. Es muy eficiente en <strong>espacio</strong> cuando el grafo es 
+            <strong>disperso</strong> (pocas aristas en comparación con la cantidad máxima posible).
+        </p>
+
+        <p>Ejemplo: supongamos este grafo no dirigido con nodos A, B, C, D:</p>
+        <ul>
+            <li>Aristas: (A-B), (A-C), (B-D), (C-D)</li>
+        </ul>
+
+        <pre class="code-block">
+    A: B, C
+    B: A, D
+    C: A, D
+    D: B, C
+        </pre>
+
+        <p>
+            Cada línea representa un nodo y la lista de nodos a los que está conectado.
+        </p>
+
+        <h2>2. Matriz de Adyacencia</h2>
+        <p>
+            La <strong>matriz de adyacencia</strong> es una matriz de tamaño <code>N x N</code> 
+            (donde N es el número de nodos). Cada celda <code>[i][j]</code> indica si existe 
+            arista entre el nodo i y el nodo j.
+        </p>
+
+        <p>Usando el mismo grafo de arriba y el orden de nodos A, B, C, D:</p>
+
+        <table class="adj-matrix">
+            <thead>
+            <tr>
+                <th></th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>A</th>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <th>B</th>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th>C</th>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th>D</th>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Aquí, un <strong>1</strong> indica que hay arista entre dos nodos y un <strong>0</strong> indica que no la hay.
+        </p>
+
+        <h2>Comparación rápida</h2>
+        <ul>
+            <li>
+            <strong>Lista de Adyacencia:</strong> 
+            <ul>
+                <li>Ventaja: ocupa menos memoria para grafos dispersos.</li>
+                <li>Desventaja: consultar si existe arista entre dos nodos puede requerir recorrer la lista.</li>
+            </ul>
+            </li>
+            <li>
+            <strong>Matriz de Adyacencia:</strong>
+            <ul>
+                <li>Ventaja: consultar si existe arista es operación O(1).</li>
+                <li>Desventaja: ocupa O(N²) espacio, incluso si hay pocas aristas.</li>
+            </ul>
+            </li>
+        </ul>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="currentYear"></span> GrafosBlog. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Introducción a los Grafos</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-icon">
+                    <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    >
+                    <defs>
+                        <!-- Gradiente de fondo -->
+                        <linearGradient id="graphGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="50%" stop-color="#6366f1" />
+                        <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+        
+                    <!-- Círculo de fondo tipo badge -->
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        fill="url(#graphGradient)"
+                    />
+        
+                    <!-- Anillo sutil -->
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="36"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.25)"
+                        stroke-width="3"
+                    />
+        
+                    <!-- Aristas del grafo -->
+                    <line x1="30" y1="60" x2="45" y2="30" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="45" y1="30" x2="70" y2="35" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="30" y1="60" x2="65" y2="70" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="65" y1="70" x2="70" y2="35" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="45" y1="30" x2="55" y2="55" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <line x1="55" y1="55" x2="30" y2="60" stroke="white" stroke-width="3" stroke-linecap="round" />
+        
+                    <!-- Nodos -->
+                    <circle cx="45" cy="30" r="4.5" fill="white" />
+                    <circle cx="30" cy="60" r="4.5" fill="white" />
+                    <circle cx="70" cy="35" r="4.5" fill="white" />
+                    <circle cx="65" cy="70" r="4.5" fill="white" />
+                    <circle cx="55" cy="55" r="4.5" fill="white" />
+                    </svg>
+                </span>
+                <span> GrafosBlog </span>
+            </a>
+        </div>
+        <nav class="main-nav">
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+            ☰
+        </button>
+        <ul id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="post1.html" class="nav-link">Introducción a los Grafos</a></li>
+            <li><a href="post2.html" class="nav-link">Representación de Grafos</a></li>
+            <li><a href="post3.html" class="nav-link">BFS y DFS</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <main class="container post">
+        <article>
+        <h1>Introducción a los Grafos: Nodos, Aristas y Tipos</h1>
+        <p>
+            Un <strong>grafo</strong> es una estructura de datos que modela relaciones entre objetos.
+            Cada objeto se representa como un <strong>nodo</strong> (o vértice) y cada relación como una
+            <strong>arista</strong> (o arco/eje).
+        </p>
+
+        <h2>Elementos básicos</h2>
+        <ul>
+            <li><strong>Vértices (nodos):</strong> los puntos o entidades del grafo.</li>
+            <li><strong>Aristas (ejes):</strong> conexiones entre nodos. Pueden ser líneas simples o flechas.</li>
+        </ul>
+
+        <h2>Tipos de grafos</h2>
+        <ul>
+            <li>
+            <strong>Grafo no dirigido:</strong> las aristas no tienen dirección. La relación es “mutua”
+            (si A está conectado con B, B está conectado con A).
+            </li>
+            <li>
+            <strong>Grafo dirigido (dígrafo):</strong> las aristas tienen dirección (se dibujan con flechas).
+            La relación puede ir de A a B, pero no necesariamente de B a A.
+            </li>
+            <li>
+            <strong>Grafo ponderado:</strong> a cada arista se le asigna un peso o costo (distancia, tiempo, etc.).
+            </li>
+        </ul>
+
+        <h2>Ejemplo visual: grafo no dirigido con 5 nodos</h2>
+        <p>Este es un ejemplo simple de un grafo no dirigido con 5 nodos (A, B, C, D, E):</p>
+
+        <!-- Diagrama sencillo con SVG -->
+        <div class="graph-diagram">
+            <svg viewBox="0 0 300 200">
+            <!-- Aristas -->
+            <line x1="50" y1="100" x2="150" y2="40" class="edge" />
+            <line x1="50" y1="100" x2="150" y2="160" class="edge" />
+            <line x1="150" y1="40" x2="250" y2="100" class="edge" />
+            <line x1="150" y1="160" x2="250" y2="100" class="edge" />
+            <line x1="150" y1="40" x2="150" y2="160" class="edge" />
+
+            <!-- Nodos -->
+            <circle cx="50" cy="100" r="18" class="node" />
+            <circle cx="150" cy="40" r="18" class="node" />
+            <circle cx="150" cy="160" r="18" class="node" />
+            <circle cx="250" cy="100" r="18" class="node" />
+            <circle cx="150" cy="100" r="18" class="node" />
+
+            <!-- Etiquetas -->
+            <text x="50" y="100" class="node-label">A</text>
+            <text x="150" y="40" class="node-label">B</text>
+            <text x="150" y="160" class="node-label">C</text>
+            <text x="250" y="100" class="node-label">D</text>
+            <text x="150" y="100" class="node-label">E</text>
+            </svg>
+        </div>
+
+        <p>
+            Cada punto representa un nodo y cada línea una conexión (arista) entre nodos.
+            No hay flechas, por lo que el grafo es <strong>no dirigido</strong>.
+        </p>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="currentYear"></span> GrafosBlog. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
